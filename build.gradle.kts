@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
-    kotlin("jvm")
+    kotlin("jvm")  version "1.6.0"
 }
 
 repositories {
