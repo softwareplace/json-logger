@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm")
 }
 
 repositories {
@@ -19,16 +19,14 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
     implementation("org.slf4j:slf4j-api:1.7.36")
-//    implementation("org.slf4j:slf4j-log4j12:1.7.36")
     implementation("org.slf4j:slf4j-simple:1.7.36")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("io.mockk:mockk:1.12.5")
-//    testImplementation("org.mockito:mockito-junit-jupiter:4.6.1")
-//    testImplementation("org.mockito:mockito-core:4.6.1")
 }
 
+tasks.register("prepareKotlinBuildScriptModel"){}
 
 tasks.withType<Test> {
     description = "Runs unit tests"
