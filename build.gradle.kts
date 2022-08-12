@@ -13,6 +13,7 @@ repositories {
 group = "json.logger"
 version = "1.0.0"
 
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -25,8 +26,6 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("io.mockk:mockk:1.12.5")
 }
-
-tasks.register("prepareKotlinBuildScriptModel"){}
 
 tasks.withType<Test> {
     description = "Runs unit tests"
