@@ -16,7 +16,7 @@ private data class LoggerModel(
         val errorMessage: String? = null,
 )
 
-data class JsonLog(private val logger:  KotlinLogger) {
+data class JsonLog(private val logger: KotlinLogger) {
     private var message: String? = null
     private var properties: HashMap<String, Any>? = null
     private var error: Throwable? = null
@@ -42,6 +42,7 @@ data class JsonLog(private val logger:  KotlinLogger) {
 
     fun run(
             level: Level,
+            printStackTraceEnable: Boolean = false,
             mapper: ObjectMapper = getObjectMapper()
     ) {
         val loggerMessage = mapper.writeValueAsString(
@@ -51,12 +52,16 @@ data class JsonLog(private val logger:  KotlinLogger) {
                         errorMessage = error?.message
                 )
         )
-        logger.run(level, loggerMessage, error)
+        if (printStackTraceEnable) {
+            logger.run(level, loggerMessage, error)
+        } else {
+            logger.run(level, loggerMessage)
+        }
     }
 }
 
 
-fun  KotlinLogger.run(
+fun KotlinLogger.run(
         level: Level = Level.INFO,
         message: String,
         error: Throwable? = null

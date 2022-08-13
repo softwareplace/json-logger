@@ -58,7 +58,7 @@ class JsonLogTest {
         JsonLog(logger)
             .add("test-key", "test-value")
             .error(error)
-            .run(Level.INFO)
+            .run(Level.INFO, true)
 
         verify {
             logger.run(Level.INFO, "{\"properties\":{\"test-key\":\"test-value\"},\"errorMessage\":\"test error log message\"}", error)
@@ -94,7 +94,7 @@ class JsonLogTest {
             .add("test-key", "test-value")
             .error(error)
             .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
-            .run(Level.ERROR)
+            .run(Level.ERROR, true)
 
         verify {
             logger.run(
