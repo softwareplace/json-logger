@@ -2,21 +2,21 @@ package json.logger.log
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import json.logger.mapper.getObjectMapper
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.slf4j.event.Level
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.kotlin.KotlinLogger
+import org.apache.logging.log4j.kotlin.loggerOf
 
-
-val Any.log: Logger get() = LoggerFactory.getLogger(this::class.java)
+val Any.loggerk: KotlinLogger
+    get() = loggerOf(this.javaClass)
 
 
 private data class LoggerModel(
-    val message: String?,
-    val properties: Map<String, Any>?,
-    val errorMessage: String? = null,
+        val message: String?,
+        val properties: Map<String, Any>?,
+        val errorMessage: String? = null,
 )
 
-data class JsonLog(private val logger: Logger) {
+data class JsonLog(private val logger:  KotlinLogger) {
     private var message: String? = null
     private var properties: HashMap<String, Any>? = null
     private var error: Throwable? = null
@@ -41,25 +41,25 @@ data class JsonLog(private val logger: Logger) {
     }
 
     fun run(
-        level: Level,
-        mapper: ObjectMapper = getObjectMapper()
+            level: Level,
+            mapper: ObjectMapper = getObjectMapper()
     ) {
         val loggerMessage = mapper.writeValueAsString(
-            LoggerModel(
-                message = message,
-                properties = properties,
-                errorMessage = error?.message
-            )
+                LoggerModel(
+                        message = message,
+                        properties = properties,
+                        errorMessage = error?.message
+                )
         )
         logger.run(level, loggerMessage, error)
     }
 }
 
 
-fun Logger.run(
-    level: Level = Level.INFO,
-    message: String,
-    error: Throwable? = null
+fun  KotlinLogger.run(
+        level: Level = Level.INFO,
+        message: String,
+        error: Throwable? = null
 ) {
     when (level) {
         Level.DEBUG -> debug(message, error)
