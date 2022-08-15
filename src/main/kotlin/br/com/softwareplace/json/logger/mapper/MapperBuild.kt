@@ -1,9 +1,9 @@
-package json.logger.mapper
+package br.com.softwareplace.json.logger.mapper
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import json.logger.format.dateFormat
+import br.com.softwareplace.json.logger.format.dateFormat
 
 fun getObjectMapper(): ObjectMapper {
     return ObjectMapper()

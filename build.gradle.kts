@@ -3,14 +3,28 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
+    `maven-publish`
     kotlin("jvm")  version "1.6.0"
 }
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
-group = "json.logger"
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "br.com.softwareplace"
+            artifactId = "json-logger"
+            version = "1.0.0"
+
+            from(components["java"])
+        }
+    }
+}
+
+group = "br.com.softwareplace"
 version = "1.0.0"
 
 

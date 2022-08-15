@@ -1,4 +1,4 @@
-package json.logger.log
+package br.com.softwareplace.json.logger.log
 
 import io.mockk.junit5.MockKExtension
 import io.mockk.spyk
