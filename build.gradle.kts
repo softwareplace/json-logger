@@ -20,7 +20,7 @@ java {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "br.com.softwareplace"
+            groupId = "com.softwareplace"
             artifactId = "json-logger"
             version = "1.0.0"
 
@@ -29,7 +29,7 @@ publishing {
     }
 }
 
-group = "br.com.softwareplace"
+group = "com.softwareplace"
 version = "1.0.0"
 
 

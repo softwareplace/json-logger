@@ -1,4 +1,4 @@
-package br.com.softwareplace.json.logger.format
+package com.softwareplace.json.logger.format
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat

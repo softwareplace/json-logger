@@ -1,7 +1,7 @@
-package br.com.softwareplace.json.logger.log
+package com.softwareplace.json.logger.log
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import br.com.softwareplace.json.logger.mapper.getObjectMapper
+import com.softwareplace.json.logger.mapper.getObjectMapper
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.kotlin.KotlinLogger
 import org.apache.logging.log4j.kotlin.loggerOf
