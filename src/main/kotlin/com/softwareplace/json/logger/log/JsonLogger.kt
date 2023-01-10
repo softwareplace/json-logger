@@ -4,16 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.softwareplace.json.logger.mapper.getObjectMapper
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.kotlin.KotlinLogger
-import org.apache.logging.log4j.kotlin.loggerOf
+import org.apache.logging.log4j.kotlin.logger
 
-val Any.loggerk: KotlinLogger
-    get() = loggerOf(this.javaClass)
+val Any.kLogger
+    get() = logger(javaClass.name)
 
 
 private data class LoggerModel(
-        val message: String?,
-        val properties: Map<String, Any>?,
-        val errorMessage: String? = null,
+    val message: String?,
+    val properties: Map<String, Any>?,
+    val errorMessage: String? = null,
 )
 
 data class JsonLog(private val logger: KotlinLogger) {
@@ -41,16 +41,16 @@ data class JsonLog(private val logger: KotlinLogger) {
     }
 
     fun run(
-            level: Level,
-            printStackTraceEnable: Boolean = false,
-            mapper: ObjectMapper = getObjectMapper()
+        level: Level,
+        printStackTraceEnable: Boolean = false,
+        mapper: ObjectMapper = getObjectMapper()
     ) {
         val loggerMessage = mapper.writeValueAsString(
-                LoggerModel(
-                        message = message,
-                        properties = properties,
-                        errorMessage = error?.message
-                )
+            LoggerModel(
+                message = message,
+                properties = properties,
+                errorMessage = error?.message
+            )
         )
         if (printStackTraceEnable) {
             logger.run(level, loggerMessage, error)
@@ -62,9 +62,9 @@ data class JsonLog(private val logger: KotlinLogger) {
 
 
 fun KotlinLogger.run(
-        level: Level = Level.INFO,
-        message: String,
-        error: Throwable? = null
+    level: Level = Level.INFO,
+    message: String,
+    error: Throwable? = null
 ) {
     when (level) {
         Level.DEBUG -> debug(message, error)

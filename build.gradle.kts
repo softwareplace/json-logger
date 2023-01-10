@@ -4,7 +4,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
     `maven-publish`
-    kotlin("jvm")  version "1.6.0"
+    kotlin("jvm") version "1.7.22"
 }
 
 repositories {
@@ -42,8 +42,8 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation("io.mockk:mockk:1.12.5")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("io.mockk:mockk:1.13.2")
 }
 
 tasks.withType<Test> {

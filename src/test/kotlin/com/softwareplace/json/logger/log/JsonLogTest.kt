@@ -14,7 +14,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call logger with expected json`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.INFO)
@@ -27,7 +27,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log debug with expected json`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.DEBUG)
@@ -40,7 +40,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log warn with expected json`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.WARN)
@@ -53,7 +53,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call logger with error message`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")
@@ -68,7 +68,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call logInfo with message`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
@@ -88,7 +88,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log error with message`() {
-        val logger = spyk(loggerk)
+        val logger = spyk(kLogger)
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")
