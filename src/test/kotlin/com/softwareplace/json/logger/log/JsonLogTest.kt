@@ -6,15 +6,18 @@ import io.mockk.verify
 import org.apache.logging.log4j.Level
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.slf4j.spi.LoggerFactoryBinder
 import java.time.LocalDate
+import com.softwareplace.json.logger.log.*
 
 @Suppress("KotlinPlaceholderCountMatchesArgumentCount")
 @ExtendWith(MockKExtension::class)
 class JsonLogTest {
-
     @Test
     fun `must to call logger with expected json`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.INFO)
@@ -27,7 +30,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log debug with expected json`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.DEBUG)
@@ -40,7 +43,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log warn with expected json`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         JsonLog(logger)
             .add("test-key", "test-value")
             .run(Level.WARN)
@@ -53,7 +56,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call logger with error message`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")
@@ -68,7 +71,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call logInfo with message`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         JsonLog(logger)
             .add("test-key", "test-value")
             .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
@@ -88,7 +91,7 @@ class JsonLogTest {
 
     @Test
     fun `must to call log error with message`() {
-        val logger = spyk(kLogger)
+        val logger = spyk(logger())
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")

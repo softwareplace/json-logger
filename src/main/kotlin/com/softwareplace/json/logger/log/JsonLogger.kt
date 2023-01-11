@@ -3,12 +3,11 @@ package com.softwareplace.json.logger.log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.softwareplace.json.logger.mapper.getObjectMapper
 import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.kotlin.KotlinLogger
-import org.apache.logging.log4j.kotlin.logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-val Any.kLogger
-    get() = logger(javaClass.name)
 
+inline fun <reified T : Any> T.logger() = LoggerFactory.getLogger(T::class.java)
 
 private data class LoggerModel(
     val message: String?,
@@ -16,7 +15,7 @@ private data class LoggerModel(
     val errorMessage: String? = null,
 )
 
-data class JsonLog(private val logger: KotlinLogger) {
+data class JsonLog(private val logger: Logger) {
     private var message: String? = null
     private var properties: HashMap<String, Any>? = null
     private var error: Throwable? = null
@@ -61,7 +60,7 @@ data class JsonLog(private val logger: KotlinLogger) {
 }
 
 
-fun KotlinLogger.run(
+fun Logger.run(
     level: Level = Level.INFO,
     message: String,
     error: Throwable? = null
