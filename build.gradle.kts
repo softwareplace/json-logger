@@ -4,6 +4,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
     `maven-publish`
+    `kotlin-dsl`
     kotlin("jvm") version "1.7.22"
 }
 
@@ -39,7 +40,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0")
 
-    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:2.7.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
