@@ -4,7 +4,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 plugins {
     `maven-publish`
-    `kotlin-dsl`
     kotlin("jvm") version "1.7.22"
 }
 
@@ -30,16 +29,27 @@ publishing {
     }
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["java"])
+                groupId = "com.github.eliasmeireles"
+                artifactId = "json-logger"
+                version = "0.0.1"
+            }
+        }
+    }
+}
+
 group = "com.softwareplace"
 version = "1.0.0"
-
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0")
-
     implementation("org.springframework.boot:spring-boot-starter-log4j2:2.7.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
