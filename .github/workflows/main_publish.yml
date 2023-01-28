@@ -16,5 +16,4 @@ jobs:
 
       - name: Test run
         run: |
-          make update
           make test
