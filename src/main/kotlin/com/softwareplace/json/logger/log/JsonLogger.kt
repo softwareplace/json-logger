@@ -2,9 +2,9 @@ package com.softwareplace.json.logger.log
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.softwareplace.json.logger.mapper.getObjectMapper
-import org.apache.logging.log4j.Level
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.slf4j.event.Level
 
 
 inline fun <reified T : Any> T.logger(): Logger = LoggerFactory.getLogger(T::class.java)

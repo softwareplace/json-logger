@@ -4,9 +4,9 @@ import com.softwareplace.json.logger.log.*
 import io.mockk.junit5.MockKExtension
 import io.mockk.spyk
 import io.mockk.verify
-import org.apache.logging.log4j.Level
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.slf4j.event.Level
 import java.time.LocalDate
 
 @Suppress("KotlinPlaceholderCountMatchesArgumentCount")
