@@ -17,7 +17,11 @@ java {
     withSourcesJar()
 }
 
-val apiVersion = "0.0.2"
+val apiVersion = "0.0.3"
+
+
+group = "com.softwareplace"
+version = apiVersion
 
 publishing {
     publications {
@@ -44,17 +48,15 @@ afterEvaluate {
     }
 }
 
-group = "com.softwareplace"
-version = "1.0.0"
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0")
 
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("ch.qos.logback:logback-core:1.2.9")
+    implementation("ch.qos.logback:logback-classic:1.2.11")
+    implementation("org.apache.logging.log4j:log4j-to-slf4j:2.13.3")
+    implementation("org.slf4j:jul-to-slf4j:1.7.30")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
