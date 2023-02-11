@@ -4,11 +4,23 @@
 
 ```kotlin
 val error = IllegalArgumentException("test error log message")
-JsonLog(logger())
+logger.jsonLog
     .add("test-key", "test-value")
     .error(error)
+    .level(Level.INFO)
+    .printStackTracker(true)
     .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
-    .run(Level.ERROR, true)
+    .run()
+```
+
+```java
+JsonLoggerKt.getJsonLog(log)
+		.add("test-key","test-value")
+		.error(error)
+		.level(Level.INFO)
+		.printStackTracker(true)
+		.message("this is a test log message created in {} of lib version {}",LocalDate.of(2022,8,12),"1.0.0")
+		.run()
 ```
 
 ```json

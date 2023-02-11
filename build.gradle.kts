@@ -17,7 +17,7 @@ java {
     withSourcesJar()
 }
 
-val apiVersion = "0.0.3"
+val apiVersion = "0.0.4"
 
 
 group = "com.softwareplace"

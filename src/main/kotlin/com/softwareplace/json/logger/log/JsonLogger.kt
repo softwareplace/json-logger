@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 
 
-inline fun <reified T : Any> T.logger(): Logger = LoggerFactory.getLogger(T::class.java)
+inline val <reified T : Any> T.logger: Logger get() = LoggerFactory.getLogger(T::class.java)
+val Logger.jsonLog: JsonLog get() = JsonLog(this)
 
 private data class LoggerModel(
     val message: String?,
@@ -19,10 +20,22 @@ data class JsonLog(private val logger: Logger) {
     private var message: String? = null
     private var properties: HashMap<String, Any>? = null
     private var error: Throwable? = null
+    private var printStackTraceEnable: Boolean = false
+    private var level: Level = Level.TRACE
 
+
+    fun level(level: Level): JsonLog {
+        this.level = level
+        return this
+    }
 
     fun error(error: Throwable?): JsonLog {
         this.error = error
+        return this
+    }
+
+    fun printStackTracker(value: Boolean): JsonLog {
+        this.printStackTraceEnable = value
         return this
     }
 
@@ -40,10 +53,8 @@ data class JsonLog(private val logger: Logger) {
     }
 
     fun run(
-        level: Level,
-        printStackTraceEnable: Boolean = false,
         mapper: ObjectMapper = getObjectMapper()
-    ) {
+    ): Logger {
         val loggerMessage = mapper.writeValueAsString(
             LoggerModel(
                 message = message,
@@ -51,7 +62,23 @@ data class JsonLog(private val logger: Logger) {
                 errorMessage = error?.message
             )
         )
-        if (printStackTraceEnable) {
+
+        return if (printStackTraceEnable) {
+            logger.run(level, loggerMessage, error)
+        } else {
+            logger.run(level, loggerMessage)
+        }
+    }
+
+    fun run(): Logger {
+        val loggerMessage = getObjectMapper().writeValueAsString(
+            LoggerModel(
+                message = message,
+                properties = properties,
+                errorMessage = error?.message
+            )
+        )
+        return if (printStackTraceEnable) {
             logger.run(level, loggerMessage, error)
         } else {
             logger.run(level, loggerMessage)
@@ -59,12 +86,11 @@ data class JsonLog(private val logger: Logger) {
     }
 }
 
-
 fun Logger.run(
     level: Level = Level.INFO,
     message: String,
     error: Throwable? = null
-) {
+): Logger {
     when (level) {
         Level.DEBUG -> debug(message, error)
         Level.TRACE -> trace(message, error)
@@ -72,5 +98,6 @@ fun Logger.run(
         Level.ERROR -> error(message, error)
         else -> info(message, error)
     }
+    return this
 }
 
