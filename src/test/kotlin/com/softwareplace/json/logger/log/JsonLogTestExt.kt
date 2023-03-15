@@ -30,7 +30,6 @@ class JsonLogTestExt {
     @Test
     fun `must to call log debug with expected json`() {
         val logger = spyk(kLogger)
-
         JsonLog(logger)
             .add("test-key", "test-value")
             .level(Level.DEBUG)

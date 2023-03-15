@@ -4,7 +4,7 @@
 
 ```kotlin
 val error = IllegalArgumentException("test error log message")
-logger.jsonLog
+JsonLog(kLogger)
     .add("test-key", "test-value")
     .error(error)
     .level(Level.INFO)
@@ -14,7 +14,7 @@ logger.jsonLog
 ```
 
 ```java
-JsonLoggerKt.getJsonLog(log)
+new JsonLog(logger)
 		.add("test-key","test-value")
 		.error(error)
 		.level(Level.INFO)
