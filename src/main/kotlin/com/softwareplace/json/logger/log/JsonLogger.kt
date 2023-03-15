@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 
 
-inline val <reified T : Any> T.logger: Logger get() = LoggerFactory.getLogger(T::class.java)
-val Logger.jsonLog: JsonLog get() = JsonLog(this)
+inline val <reified T : Any> T.kLogger: Logger get() = LoggerFactory.getLogger(T::class.java)
 
 private data class LoggerModel(
     val message: String?,
@@ -16,13 +15,14 @@ private data class LoggerModel(
     val errorMessage: String? = null,
 )
 
-data class JsonLog(private val logger: Logger) {
+data class JsonLog(
+    val kLog: Logger
+) {
     private var message: String? = null
     private var properties: HashMap<String, Any>? = null
     private var error: Throwable? = null
     private var printStackTraceEnable: Boolean = false
     private var level: Level = Level.TRACE
-
 
     fun level(level: Level): JsonLog {
         this.level = level
@@ -64,9 +64,9 @@ data class JsonLog(private val logger: Logger) {
         )
 
         return if (printStackTraceEnable) {
-            logger.run(level, loggerMessage, error)
+            kLog.run(level, loggerMessage, error)
         } else {
-            logger.run(level, loggerMessage)
+            kLog.run(level, loggerMessage)
         }
     }
 
@@ -79,9 +79,9 @@ data class JsonLog(private val logger: Logger) {
             )
         )
         return if (printStackTraceEnable) {
-            logger.run(level, loggerMessage, error)
+            kLog.run(level, loggerMessage, error)
         } else {
-            logger.run(level, loggerMessage)
+            kLog.run(level, loggerMessage)
         }
     }
 }

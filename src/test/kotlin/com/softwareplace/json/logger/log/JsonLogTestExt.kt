@@ -14,8 +14,9 @@ import java.time.LocalDate
 class JsonLogTestExt {
     @Test
     fun `must to call logger with expected json`() {
-        val logger = spyk(logger)
-            .jsonLog
+        val logger = spyk(kLogger)
+
+        JsonLog(logger)
             .add("test-key", "test-value")
             .level(Level.INFO)
             .run()
@@ -28,7 +29,8 @@ class JsonLogTestExt {
 
     @Test
     fun `must to call log debug with expected json`() {
-        val logger = spyk(logger)
+        val logger = spyk(kLogger)
+
         JsonLog(logger)
             .add("test-key", "test-value")
             .level(Level.DEBUG)
@@ -42,7 +44,7 @@ class JsonLogTestExt {
 
     @Test
     fun `must to call log warn with expected json`() {
-        val logger = spyk(logger)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .level(Level.WARN)
@@ -56,7 +58,7 @@ class JsonLogTestExt {
 
     @Test
     fun `must to call logger with error message`() {
-        val logger = spyk(logger)
+        val logger = spyk(kLogger)
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")
@@ -73,7 +75,7 @@ class JsonLogTestExt {
 
     @Test
     fun `must to call logInfo with message`() {
-        val logger = spyk(logger)
+        val logger = spyk(kLogger)
         JsonLog(logger)
             .add("test-key", "test-value")
             .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
@@ -94,7 +96,7 @@ class JsonLogTestExt {
 
     @Test
     fun `must to call log error with message`() {
-        val logger = spyk(logger)
+        val logger = spyk(kLogger)
         val error = IllegalArgumentException("test error log message")
         JsonLog(logger)
             .add("test-key", "test-value")
