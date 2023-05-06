@@ -1,13 +1,16 @@
-package com.softwareplace.json.logger.log
+package com.softwareplace.jsonlogger.log
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.softwareplace.json.logger.mapper.getObjectMapper
+import com.softwareplace.jsonlogger.mapper.getObjectMapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 
 
 inline val <reified T : Any> T.kLogger: Logger get() = LoggerFactory.getLogger(T::class.java)
+
+val Logger.jsonLog: JsonLog get() = JsonLog(this)
+
 
 private data class LoggerModel(
     val message: String?,
@@ -34,21 +37,33 @@ data class JsonLog(
         return this
     }
 
-    fun printStackTracker(value: Boolean): JsonLog {
-        this.printStackTraceEnable = value
+    fun printStackTrackerEnable(): JsonLog {
+        this.printStackTraceEnable = true
         return this
     }
 
-    fun message(message: String, vararg args: Any?): JsonLog {
-        this.message = String.format(message.replace("{}", "%s"), *args)
+    fun printStackTrackerDisable(): JsonLog {
+        this.printStackTraceEnable = false
         return this
     }
 
-    fun add(key: String, value: Any): JsonLog {
-        if (properties == null) {
-            properties = HashMap()
+    fun message(message: String?, vararg args: Any?): JsonLog {
+        message?.let {
+            this.message = String.format(message.replace("{}", "%s"), *args)
         }
-        properties?.let { it[key] = value }
+        return this
+    }
+
+    fun add(key: String?, value: Any?): JsonLog {
+        key?.let {
+            value?.let {
+                if (properties == null) {
+                    properties = HashMap()
+                }
+
+                properties?.let { it[key] = value }
+            }
+        }
         return this
     }
 

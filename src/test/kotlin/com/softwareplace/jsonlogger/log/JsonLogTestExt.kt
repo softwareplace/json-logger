@@ -1,6 +1,5 @@
-package com.softwareplace.json.logger.log
+package com.softwareplace.jsonlogger.log
 
-import com.softwareplace.json.logger.log.*
 import io.mockk.junit5.MockKExtension
 import io.mockk.spyk
 import io.mockk.verify
@@ -63,12 +62,19 @@ class JsonLogTestExt {
             .add("test-key", "test-value")
             .error(error)
             .level(Level.INFO)
-            .printStackTracker(true)
+            .printStackTrackerEnable()
             .run()
 
         verify {
-            logger.run(Level.INFO, "{\"properties\":{\"test-key\":\"test-value\"},\"errorMessage\":\"test error log message\"}", error)
-            logger.info("{\"properties\":{\"test-key\":\"test-value\"},\"errorMessage\":\"test error log message\"}", error)
+            logger.run(
+                Level.INFO,
+                "{\"properties\":{\"test-key\":\"test-value\"},\"errorMessage\":\"test error log message\"}",
+                error
+            )
+            logger.info(
+                "{\"properties\":{\"test-key\":\"test-value\"},\"errorMessage\":\"test error log message\"}",
+                error
+            )
         }
     }
 
@@ -102,7 +108,7 @@ class JsonLogTestExt {
             .error(error)
             .message("this is a test log message created in {} of lib version {}", LocalDate.of(2022, 8, 12), "1.0.0")
             .level(Level.ERROR)
-            .printStackTracker(true)
+            .printStackTrackerEnable()
             .run()
 
         verify {

@@ -1,10 +1,11 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `maven-publish`
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version "1.8.20"
 }
 
 repositories {
@@ -17,33 +18,41 @@ java {
     withSourcesJar()
 }
 
-val apiVersion = "0.0.5"
+val apiVersion = "0.0.7"
 
 
-group = "com.softwareplace"
+val appGroup = "com.softwareplace.jsonlogger"
+
+group = appGroup
+
 version = apiVersion
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.softwareplace"
+            groupId = appGroup
             artifactId = "json-logger"
             version = apiVersion
-
             from(components["java"])
         }
-    }
-}
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["java"])
-                groupId = "com.github.eliasmeireles"
-                artifactId = "json-logger"
-                version = apiVersion
-            }
+        create<MavenPublication>("release") {
+            from(components["java"])
+            groupId = "com.github.eliasmeireles"
+            artifactId = "json-logger"
+            version = apiVersion
         }
     }
 }
@@ -76,3 +85,5 @@ tasks.withType<Test> {
         )
     }
 }
+
+
