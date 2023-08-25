@@ -50,7 +50,7 @@ publishing {
 
         create<MavenPublication>("release") {
             from(components["java"])
-            groupId = "com.github.eliasmeireles"
+            groupId = "com.github.softwareplace"
             artifactId = "json-logger"
             version = apiVersion
         }
