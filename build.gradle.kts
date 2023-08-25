@@ -18,7 +18,7 @@ java {
     withSourcesJar()
 }
 
-val apiVersion = "0.0.7"
+val apiVersion = "v0.0.1"
 
 
 val appGroup = "com.softwareplace.jsonlogger"
